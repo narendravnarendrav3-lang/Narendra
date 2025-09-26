@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Market Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f8;
+    }
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav {
+      background-color: #34495e;
+      display: flex;
+      justify-content: space-around;
+      padding: 0.5rem;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .dashboard {
+      padding: 1rem;
+    }
+    .cards {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .card {
+      flex: 1;
+      background-color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    canvas {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #ecf0f1;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Market Business Dashboard</h1>
+  </header>
+  <nav>
+    <a href="#">Overview</a>
+    <a href="#">Sales</a>
+    <a href="#">Products</a>
+    <a href="#">Reports</a>
+  </nav>
+  <div class="dashboard">
+    <div class="cards">
+      <div class="card">
+        <h2>Total Sales</h2>
+        <p id="salesValue">₹1,25,000</p>
+      </div>
+      <div class="card">
+        <h2>Customers</h2>
+        <p>320</p>
+      </div>
+      <div class="card">
+        <h2>Products</h2>
+        <p>58</p>
+      </div>
+    </div>
+
+    <canvas id="salesChart" width="600" height="300"></canvas>
+
+    <h2>Product Inventory</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Category</th>
+          <th>Stock</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody id="productTable">
+        <tr><td>Apples</td><td>Fruits</td><td>120</td><td>₹80/kg</td></tr>
+        <tr><td>Rice</td><td>Grains</td><td>200</td><td>₹55/kg</td></tr>
+        <tr><td>Milk</td><td>Dairy</td><td>75</td><td>₹50/litre</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const ctx = document.getElementById('salesChart').getContext('2d');
+    const chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        datasets: [{
+          label: 'Daily Sales (₹)',
+          data: [12000, 15000, 10000, 18000, 20000, 22000, 16000],
+          backgroundColor: '#3498db'
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+
+    // Example interaction: update sales value
+    document.getElementById('salesValue').addEventListener('click', () => {
+      const newSales = Math.floor(Math.random() * 200000);
+      document.getElementById('salesValue').textContent = `₹${newSales.toLocaleString()}`;
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>
